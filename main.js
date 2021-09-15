@@ -3,12 +3,12 @@
 console.log('hello world');
 
 // connection to Moralis Mainnet server
-// Moralis.initialize("UJurYwXbXkh4XU56MAPtPzKebxpzhiOc1YKtKrT6");
-// Moralis.serverURL = "https://ixnw6hipouw2.bigmoralis.com:2053/server";
+Moralis.initialize("UJurYwXbXkh4XU56MAPtPzKebxpzhiOc1YKtKrT6");
+Moralis.serverURL = "https://ixnw6hipouw2.bigmoralis.com:2053/server";
 
 // connect to Moralis Testnet server
-Moralis.initialize("bAS3EF7dwd0SosA18W6asFkHJoeg0LBMFZmcPK2p");
-Moralis.serverURL = "https://yhsppf8qokbr.grandmoralis.com:2053/server";
+// Moralis.initialize("bAS3EF7dwd0SosA18W6asFkHJoeg0LBMFZmcPK2p");
+// Moralis.serverURL = "https://yhsppf8qokbr.grandmoralis.com:2053/server";
 
 // TO DO : CHANGE WHEN LIVE
 let homepage = "http://127.0.0.1:5500/index.html";
@@ -42,10 +42,11 @@ logout = async () => {
 
 // transactions function
 // TO DO : CHANGE TO MAINNET TRANSACTIONS WHEN LIVE
+// const transactions = await Moralis.Web3API.account.getTransactions();
 getTransactions = async () => {
     console.log('get transactions clicked');
     const options = { chain: "rinkeby", address: "0xefFA817fd5b838C06758D42CdC3132B9F1EdF917" };
-    // const options = { chain: "ropsten", address: "0xefFA817fd5b838C06758D42CdC3132B9F1EdF917" };
+    // const options = { chain: "ropsten", address: "0x07F307118f7CAC1934B442a6dc933072B0bFFe38" };
     const transactions = await Moralis.Web3API.account.getTransactions(options);
     console.log(transactions);
 
@@ -76,6 +77,8 @@ getTransactions = async () => {
             <tr>
                 <td><a href='https://rinkeby.etherscan.io/tx/${t.hash}' target="_blank" rel="noopener noreferrer">${t.hash}</a></td>
                 <td><a href='https://rinkeby.etherscan.io/block/${t.block_number}' target="_blank rel="noopener noreferrer">${t.block_number}</a></td>
+                // <td><a href='https://ropsten.etherscan.io/tx/${t.hash}' target="_blank" rel="noopener noreferrer">${t.hash}</a></td>
+                // <td><a href='https://ropsten.etherscan.io/block/${t.block_number}' target="_blank rel="noopener noreferrer">${t.block_number}</a></td>
                 <td">${millisecondstoTime(Date.parse(new Date()) - Date.parse(t.block_timestamp))}</td>
                 <td>${t.from_address == Moralis.user.current().get('ethAddress') ? 'Outgoing' : 'Incoming'}</td>
                 <td>${((t.gas * t.gas_price) / 1e18).toFixed(5)} ETH</td>
