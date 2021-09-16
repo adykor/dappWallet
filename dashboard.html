@@ -28,7 +28,7 @@
       data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+    <input id="get-token-price" class="form-control form-control-dark w-100" type="text" placeholder="Search Token Price By Contract Address" aria-label="Search">
     <div class="navbar-nav">
       <div class="nav-item text-nowrap">
         <a id="btn-logout" class="nav-link px-3" href="#">Sign out</a>
@@ -65,6 +65,12 @@
                 NFTs
               </a>
             </li>
+            <li id="get-token-price" class="nav-item">
+              <a class="nav-link" href="#">
+                <span data-feather="dollar-sign"></span>
+                Token Price
+              </a>
+            </li>
           </ul>
         </div>
       </nav>
@@ -78,17 +84,17 @@
 
         <h2>Transactions</h2>
         <div id="tableOfTransactions" class="table-responsive">
-
         </div>
-
         <h2>Balances</h2>
-        <div id="userBalances" class="table-responsive">
-          
+        <div id="userBalances" class="table-responsive"> 
         </div>
 
         <h2>NFTs</h2>
         <div id="tableOfNFTs" class="table-responsive d-flex flex-wrap">
-          
+        </div>
+
+        <h2>Token Price</h2>
+        <div id="tableOfTokenPrice" class="table-responsive">
         </div>
 
       </main>
@@ -106,5 +112,4 @@
   <script src="dashboard.js"></script>
   <script src="main.js"></script>
 </body>
-
 </html>

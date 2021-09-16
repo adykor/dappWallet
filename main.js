@@ -188,37 +188,90 @@ fixURL = (url) => {
 }
 
 
-// search token price function
-//Get token price on PancakeSwap v2 BSC
-// const options = {
-//     address: "0x7...2",
-//     chain: "bsc",
-//     exchange: "PancakeSwapv2"
-//   };
-//   const price = await Moralis.Web3API.token.getTokenPrice(options);
 
 
-// listeners
-if (document.querySelector('#btn-login') != null) {
-    document.querySelector('#btn-login').onclick = login;
+// TOKEN PRICE FUNCTION
+getTokenPrice = async () => {
+    console.log('search submitted');
+    const options = { address: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c", chain: "bsc", exchange: "PancakeSwapv2" };
+    const price = await Moralis.Web3API.token.getTokenPrice(options);
+    // const price = await Moralis.Web3API.token.getERC721Metadata(options);
+    console.log(price);
+
+    // let Token = await Moralis.Web3API.token.getTokenPrice();
+
+    // table variable
+    if (price) {
+        let table = `
+        <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Token Name</th>
+                <th scope="col">Token Symbol</th>
+                <th scope="col">Price</th>
+                <th scope="col">Contract Address</th>
+                <th scope="col">Chain</th>
+                <th scope="col">Exchange</th>
+            </tr>
+        </thead>
+        <tbody id="tokenPrice">
+        </tbody>
+        </table>
+        `
+
+    document.querySelector('#tableOfTokenPrice').innerHTML = table;
+
+      // token price array
+      price.result.forEach(t => {
+        let content = `
+        <tr>
+            <td><${t.name}</td>
+            <td>${t.symbol}</a></td>
+            <td>${t.price}</td>
+            <td>${t.contract.address}</td>
+            <td>${t.chain}</td>
+            <td>${t.exchange}</td>
+        </tr>
+        `
+        tokenPrice.innerHTML += content;
+    })
+}
 }
 
-if (document.querySelector('#btn-logout') != null) {
-    document.querySelector('#btn-logout').onclick = logout;
-}
 
-if (document.querySelector('#get-transactions-link') != null) {
-    document.querySelector('#get-transactions-link').onclick = getTransactions;
-}
 
-if (document.querySelector('#get-balances-link') != null) {
-    document.querySelector('#get-balances-link').onclick = getBalances;
-}
 
-if (document.querySelector('#get-nfts-link') != null) {
-    document.querySelector('#get-nfts-link').onclick = getNFTs;
-}
+
+
+
+
+
+    // listeners
+    if (document.querySelector('#btn-login') != null) {
+        document.querySelector('#btn-login').onclick = login;
+    }
+
+    if (document.querySelector('#btn-logout') != null) {
+        document.querySelector('#btn-logout').onclick = logout;
+    }
+
+    if (document.querySelector('#get-transactions-link') != null) {
+        document.querySelector('#get-transactions-link').onclick = getTransactions;
+    }
+
+    if (document.querySelector('#get-balances-link') != null) {
+        document.querySelector('#get-balances-link').onclick = getBalances;
+    }
+
+    if (document.querySelector('#get-nfts-link') != null) {
+        document.querySelector('#get-nfts-link').onclick = getNFTs;
+    }
+
+    if (document.querySelector('#get-token-price') != null) {
+        document.querySelector('#get-token-price').onclick = getTokenPrice;
+    }
 
 // get-transactions-link
 // get-balances-link
 // get-nfts-link
+// get-token-price
