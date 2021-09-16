@@ -45,7 +45,7 @@ logout = async () => {
 // const transactions = await Moralis.Web3API.account.getTransactions();
 getTransactions = async () => {
     console.log('get transactions clicked');
-    const options = { chain: "rinkeby", address: "0xefFA817fd5b838C06758D42CdC3132B9F1EdF917" };
+    const options = { chain: "rinkeby", address: "0x07F307118f7CAC1934B442a6dc933072B0bFFe38" };
     // const options = { chain: "ropsten", address: "0x07F307118f7CAC1934B442a6dc933072B0bFFe38" };
     const transactions = await Moralis.Web3API.account.getTransactions(options);
     console.log(transactions);
@@ -77,10 +77,8 @@ getTransactions = async () => {
             <tr>
                 <td><a href='https://rinkeby.etherscan.io/tx/${t.hash}' target="_blank" rel="noopener noreferrer">${t.hash}</a></td>
                 <td><a href='https://rinkeby.etherscan.io/block/${t.block_number}' target="_blank rel="noopener noreferrer">${t.block_number}</a></td>
-                // <td><a href='https://ropsten.etherscan.io/tx/${t.hash}' target="_blank" rel="noopener noreferrer">${t.hash}</a></td>
-                // <td><a href='https://ropsten.etherscan.io/block/${t.block_number}' target="_blank rel="noopener noreferrer">${t.block_number}</a></td>
-                <td">${millisecondstoTime(Date.parse(new Date()) - Date.parse(t.block_timestamp))}</td>
-                <td>${t.from_address == Moralis.user.current().get('ethAddress') ? 'Outgoing' : 'Incoming'}</td>
+                <td>${millisecondsToTime(Date.parse(new Date()) - Date.parse(t.block_timestamp))}</td>
+                <td>${t.from_address == Moralis.User.current().get('ethAddress') ? 'Outgoing' : 'Incoming'}</td>
                 <td>${((t.gas * t.gas_price) / 1e18).toFixed(5)} ETH</td>
                 <td>${(t.value / 1e18).toFixed(5)} ETH</td>
             </tr>
@@ -89,6 +87,31 @@ getTransactions = async () => {
         })
     }
 }
+
+
+// timestamp function for table
+// currenttime(ms) - blocktime(ms) = TIME IN MILLISECONDS
+// millisecondstoTime(Date.parse(new Date()) - Date.parse(t.block_timestamp))
+
+millisecondsToTime = (ms) => {
+    let minutes = Math.floor(ms / 1000 * 60);
+    let hours = Math.floor(ms / 1000 * 60 * 60);
+    let days = Math.floor(ms / 1000 * 60 * 60 * 24);
+    // let minutes = (ms / Math.floor(1000 * 60));
+    // let hours = (ms / Math.floor(1000 * 60 * 60));
+    // let days = (ms / Math.floor(1000 * 60 * 60 * 24));
+
+    if (days < 1) {
+        if (hours < 1) {
+            if (minutes < 1) {
+                return `less than a minute ago`
+            } else return `${minutes} minute(s) ago`
+        } else return `${hours} hour(s) ago`
+    } else return `${days} day(s) ago`
+}
+
+
+
 
 // balances function
 getBalances = async () => {
@@ -163,29 +186,6 @@ fixURL = (url) => {
         return url + "?format=json"
     }
 }
-
-
-
-
-
-
-// timestamp function for table
-// currenttime(ms) - blocktime(ms) = TIME IN MILLISECONDS
-// millisecondstoTime(Date.parse(new Date()) - Date.parse(t.block_timestamp))
-
-millisecondsToTime = (ms) => {
-    let minutes = (ms / Math.floor(1000 * 60));
-    let hours = (ms / Math.floor(1000 * 60 * 60));
-    let days = (ms / Math.floor(1000 * 60 * 60 * 24));
-    if (days < 1) {
-        if (hours < 1) {
-            if (minutes < 1) {
-                return `less than a minute ago`
-            } else return `${minutes} minute(s) ago`
-        } else return `${hours} hour(s) ago`
-    } else return `${days} day(s) ago`
-}
-
 
 
 // listeners
