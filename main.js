@@ -94,12 +94,12 @@ getTransactions = async () => {
 // millisecondstoTime(Date.parse(new Date()) - Date.parse(t.block_timestamp))
 
 millisecondsToTime = (ms) => {
-    let minutes = Math.floor(ms / 1000 * 60);
-    let hours = Math.floor(ms / 1000 * 60 * 60);
-    let days = Math.floor(ms / 1000 * 60 * 60 * 24);
-    // let minutes = (ms / Math.floor(1000 * 60));
-    // let hours = (ms / Math.floor(1000 * 60 * 60));
-    // let days = (ms / Math.floor(1000 * 60 * 60 * 24));
+    // let minutes = Math.floor(ms / 1000 * 60);
+    // let hours = Math.floor(ms / 1000 * 60 * 60);
+    // let days = Math.floor(ms / 1000 * 60 * 60 * 24);
+    let minutes = (ms / Math.floor(1000 * 60)).toFixed(1);
+    let hours = (ms / Math.floor(1000 * 60 * 60).toFixed(1));
+    let days = (ms / Math.floor(1000 * 60 * 60 * 24).toFixed(1));
 
     if (days < 1) {
         if (hours < 1) {
@@ -186,6 +186,16 @@ fixURL = (url) => {
         return url + "?format=json"
     }
 }
+
+
+// search token price function
+//Get token price on PancakeSwap v2 BSC
+// const options = {
+//     address: "0x7...2",
+//     chain: "bsc",
+//     exchange: "PancakeSwapv2"
+//   };
+//   const price = await Moralis.Web3API.token.getTokenPrice(options);
 
 
 // listeners

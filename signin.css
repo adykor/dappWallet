@@ -19,13 +19,13 @@ body {
 #user-username {
   background-color: black;
   border-color: aqua;
-  color: black;
+  color: white;
 }
 
 #user-email {
   background-color: black;
   border-color: aqua;
-  color: black;
+  color: white;
 }
 
 #btn-login {
