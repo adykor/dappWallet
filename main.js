@@ -3,15 +3,11 @@
 console.log('hello world');
 
 // connection to Moralis Mainnet server
-Moralis.initialize("UJurYwXbXkh4XU56MAPtPzKebxpzhiOc1YKtKrT6");
-Moralis.serverURL = "https://ixnw6hipouw2.bigmoralis.com:2053/server";
-
-// connect to Moralis Testnet server
-// Moralis.initialize("bAS3EF7dwd0SosA18W6asFkHJoeg0LBMFZmcPK2p");
-// Moralis.serverURL = "https://yhsppf8qokbr.grandmoralis.com:2053/server";
+Moralis.initialize("WaGujmZNMBTckf7xuyLhYcbDQxiI18HE95P7jOV5");
+Moralis.serverURL = "https://yksyrtftymzt.grandmoralis.com:2053/server";
 
 // TO DO : CHANGE WHEN LIVE
-let homepage = "http://127.0.0.1:5500/index.html";
+let homepage = "http://127.0.0.1:5502/index.html";
 
 // logged in check
 if (Moralis.User.current() == null && window.location.href != homepage) {
@@ -189,63 +185,6 @@ fixURL = (url) => {
 
 
 
-
-// TOKEN PRICE FUNCTION
-getTokenPrice = async () => {
-    console.log('search submitted');
-    const options = { address: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c", chain: "bsc", exchange: "PancakeSwapv2" };
-    const price = await Moralis.Web3API.token.getTokenPrice(options);
-    // const price = await Moralis.Web3API.token.getERC721Metadata(options);
-    console.log(price);
-
-    // let Token = await Moralis.Web3API.token.getTokenPrice();
-
-    // table variable
-    if (price) {
-        let table = `
-        <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Token Name</th>
-                <th scope="col">Token Symbol</th>
-                <th scope="col">Price</th>
-                <th scope="col">Contract Address</th>
-                <th scope="col">Chain</th>
-                <th scope="col">Exchange</th>
-            </tr>
-        </thead>
-        <tbody id="tokenPrice">
-        </tbody>
-        </table>
-        `
-
-    document.querySelector('#tableOfTokenPrice').innerHTML = table;
-
-      // token price array
-      price.result.forEach(t => {
-        let content = `
-        <tr>
-            <td><${t.name}</td>
-            <td>${t.symbol}</a></td>
-            <td>${t.price}</td>
-            <td>${t.contract.address}</td>
-            <td>${t.chain}</td>
-            <td>${t.exchange}</td>
-        </tr>
-        `
-        tokenPrice.innerHTML += content;
-    })
-}
-}
-
-
-
-
-
-
-
-
-
     // listeners
     if (document.querySelector('#btn-login') != null) {
         document.querySelector('#btn-login').onclick = login;
@@ -267,11 +206,7 @@ getTokenPrice = async () => {
         document.querySelector('#get-nfts-link').onclick = getNFTs;
     }
 
-    if (document.querySelector('#get-token-price') != null) {
-        document.querySelector('#get-token-price').onclick = getTokenPrice;
-    }
 
 // get-transactions-link
 // get-balances-link
 // get-nfts-link
-// get-token-price
